@@ -8,6 +8,7 @@ import com.jing.cloud.service.PayService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,5 +52,15 @@ public class PayController {
     @Operation(summary = "查询", description = "查询所有支付流水方法")
     public Result<List<Pay>> getPayList() {
         return Result.success(payService.getAll());
+    }
+
+    @Value("${server.port}")
+    private String port;
+
+    @GetMapping("/consul")
+    @Operation(summary = "查询", description = "consul配置")
+    public Result<String> getInfoByConsul(@Value("${jing.info}") String info) {
+        String consulInfo = "jing.info: " + info + "\t" + "port" + port;
+        return Result.success(consulInfo);
     }
 }
