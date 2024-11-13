@@ -8,5 +8,36 @@ spring:
       host: localhost
       port: 8500
       service-name: ${spring.application.name}
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 3000 #连接超时时间
+            read-timeout: 3000 #读取超时时间
+          cloud-payment-service:
+            connect-timeout: 10000 #连接超时时间
+            read-timeout: 10000 #读取超时时间
+      httpclient:
+              hc5:
+                enabled: true
+#      请求与响应压缩 GZIP，减少通讯损耗
+#      compression:
+#        request:
+#          enabled: true
+#        response:
+#          enabled: true
+#       细粒度化配置
+      compression:
+        request:
+          enabled: true
+          mime-types: text/html,application/xml,application/json #触发压缩数据类型
+          min-request-size: 2048 #最小触发压缩大小
+        response:
+          enabled: true
+
   application:
     name: cloud-consumer-openfeign-order
+logging:
+  level:
+    com.jing.cloud.apis:
+      PayFeignApi: debug

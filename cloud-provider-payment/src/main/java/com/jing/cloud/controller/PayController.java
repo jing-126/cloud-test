@@ -36,6 +36,12 @@ public class PayController {
     @GetMapping("/get/{id}")
     @Operation(summary = "查询", description = "根据ID查询支付流水")
     public Result<Pay> getPay(@PathVariable("id") int id) {
+        try {
+            System.out.println("接收到请求：休眠20s");
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return Result.success(payService.getById(id));
     }
 

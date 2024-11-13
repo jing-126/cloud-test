@@ -1,5 +1,6 @@
 package com.jing.cloud.controller;
 
+import cn.hutool.core.date.DateUtil;
 import com.jing.cloud.apis.PayFeignApi;
 import com.jing.cloud.resp.Result;
 import jakarta.annotation.Resource;
@@ -21,6 +22,14 @@ public class FeginOrderController {
 
     @GetMapping("/pay/get/{id}")
     Result getPay(@PathVariable("id") String id) {
-        return api.getPay(id);
+        Result result = null;
+        try {
+            System.out.println("远程调用查询支付信息，当前时间：" + DateUtil.now());
+            result = api.getPay(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("远程调用发生异常，当前时间：" + DateUtil.now());
+        }
+        return result;
     }
 }
