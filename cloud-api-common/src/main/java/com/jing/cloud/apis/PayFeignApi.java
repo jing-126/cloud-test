@@ -12,4 +12,16 @@ public interface PayFeignApi {
 
     @GetMapping("/consul")
     Result getInfoByConsul();
+
+    @GetMapping("/circuit/{id}")
+    Result<String> myCircuit(@PathVariable("id") Integer id);
+
+    @GetMapping("/bulkhead/{id}")
+    Result<String> myBulkhead(@PathVariable("id") Integer id);
+
+    @GetMapping("/poolBulkhead/{id}")
+    Result<String> myPoolBulkhead(@PathVariable("id") Integer id);
+
+    @GetMapping("/rateLimit/{id}")
+    Result<String> myRateLimit(@PathVariable("id") Integer id);
 }
