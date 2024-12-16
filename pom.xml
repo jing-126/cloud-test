@@ -14,6 +14,7 @@
         <module>cloud-consumer-order</module>
         <module>cloud-api-common</module>
         <module>cloud-consumer-fegin-order</module>
+        <module>cloud-gateway</module>
     </modules>
 
     <properties>
@@ -34,9 +35,49 @@
         <spring.boot.version>3.2.0</spring.boot.version>
         <spring.cloud.version>2023.0.0</spring.cloud.version>
         <spring.cloud.alibaba.version>2022.0.0.0-RC2</spring.cloud.alibaba.version>
+        <micrometer-tracing.version>1.2.0</micrometer-tracing.version>
+        <micrometer-observation.version>1.12.0</micrometer-observation.version>
+        <feign-micrometer.version>12.5</feign-micrometer.version>
+        <zipkin-reporter-brave.version>2.17.0</zipkin-reporter-brave.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <!--链路追踪版本中心，链路收集-->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bom</artifactId>
+                <version>${micrometer-tracing.version}</version>
+            </dependency>
+            <!--指标追踪traceId-->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing</artifactId>
+                <version>${micrometer-tracing.version}</version>
+            </dependency>
+            <!--用于与分布式跟踪工具brave集成，以收集应用程序的分布式跟踪数据-->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bridge-brave</artifactId>
+                <version>${micrometer-tracing.version}</version>
+            </dependency>
+            <!--观测模块-->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-observation</artifactId>
+                <version>${micrometer-observation.version}</version>
+            </dependency>
+            <!--feign与Micrometer模块整合-->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-micrometer</artifactId>
+                <version>${feign-micrometer.version}</version>
+            </dependency>
+            <!--将brave跟踪数据报告到zipKin跟踪系统的库-->
+            <dependency>
+                <groupId>io.zipkin.reporter2</groupId>
+                <artifactId>zipkin-reporter-brave</artifactId>
+                <version>${zipkin-reporter-brave.version}</version>
+            </dependency>
             <!--springboot 版本控制依赖-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
