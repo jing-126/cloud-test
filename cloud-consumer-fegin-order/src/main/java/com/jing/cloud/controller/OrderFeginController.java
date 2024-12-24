@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/fegin")
-public class FeginOrderController {
+public class OrderFeginController {
     @Resource
     private PayFeignApi api;
 

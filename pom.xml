@@ -15,6 +15,7 @@
         <module>cloud-api-common</module>
         <module>cloud-consumer-fegin-order</module>
         <module>cloud-gateway</module>
+        <module>cloudAlibaba-provider-payment</module>
     </modules>
 
     <properties>

@@ -29,4 +29,6 @@ public class PayDTO implements Serializable {
      */
     private BigDecimal amount;
 
+    private String serverPort;
+
 }

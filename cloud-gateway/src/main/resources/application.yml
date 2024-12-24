@@ -1,0 +1,73 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    consul:
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+      host: localhost
+      port: 8500
+
+    gateway:
+      routes:
+        - id: pay_routh1 # 路由的ID （类似Mysql主键ID），没有固定的规则但要求唯一
+          uri:
+#            http://localhost:8001 #匹配后提供服务的路由地址
+            lb://cloud-payment-service
+          predicates:
+            - Path=/pay/gateway/get/** #断言，路径相匹配的路由
+            - After=2024-12-18T21:40:43.359954200+08:00[Asia/Shanghai]
+            - Cookie=jing,cloud
+            - Header=X-Request-Id, \d+
+            - Host=**.jingleCode.top
+            - Query=username, \d+
+            - RemoteAddr=192.168.31.1/24
+#            - Method=POST,GET
+#            - name: My
+#              args:
+#                userType: abc
+            - My=abc
+        - id: pay_routh2
+          uri:
+            lb://cloud-payment-service
+          predicates:
+            - Path=/pay/gateway/info/**
+            - Before=2024-12-18T21:51:43.359954200+08:00[Asia/Shanghai]
+        - id: pay_routh3
+          uri:
+            lb://cloud-payment-service
+          predicates:
+            - Path=/pay/gateway/getZoned
+            - Between=2024-12-18T21:49:43.359954200+08:00[Asia/Shanghai], 2024-12-18T21:52:43.359954200+08:00[Asia/Shanghai]
+        - id: pay_routh3
+          uri:
+            lb://cloud-payment-service
+          predicates:
+            - Path=/pay/gateway/filter/**
+#            - Path=/gateway/filter/** # 前缀测试
+#            - Path=/abc/123/{segment} # 修改路径测试
+          filters:
+            - My=username
+#            - 路径前缀
+#            - PrefixPath=/pay
+#            - 路径修改
+#            - SetPath=/pay/gateway/{segment}
+#            - 重定向
+#            - RedirectTo=302, https://www.baidu.com
+#            - 请求头相关操作
+            - AddRequestHeader=X-Request-Test, test
+            - AddRequestHeader=X-Request-Jing, jing
+            - RemoveRequestHeader=sec-fetch-site
+#            - SetRequestHeader=accept-encoding ,gzip 修改请求头参数
+#            - 请求参数相关操作
+            - AddRequestParameter=customerId, 123
+            - RemoveRequestParameter=customerName
+#            - 响应信息相关操作
+            - AddResponseHeader=X-Response-Test, gatewayTest
+            - SetResponseHeader=Date, 2025-12-22
+#            - RemoveResponseHeader=Content-Type
+      default-filters:
+        - AddRequestHeader=X-Request-default, default
