@@ -16,6 +16,8 @@
         <module>cloud-consumer-fegin-order</module>
         <module>cloud-gateway</module>
         <module>cloudAlibaba-provider-payment</module>
+        <module>cloudAlibaba-consumer-nacos-order</module>
+        <module>cloudAlibaba-config-nacos-client</module>
     </modules>
 
     <properties>
