@@ -20,6 +20,9 @@
         <module>cloudAlibaba-config-nacos-client</module>
         <module>cloudAlibaba-sentinel-service</module>
         <module>cloudalibaba-sentinel-gateway</module>
+        <module>seata-order-service</module>
+        <module>seata-storage-service</module>
+        <module>seata-account-service</module>
     </modules>
 
     <properties>
